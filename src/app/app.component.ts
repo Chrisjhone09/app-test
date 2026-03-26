@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
     this.uploadProgress = 0;
     this.uploading = true;
 
-    const response = this.http.post(environment.apiUrl + "/api/file/upload-file", formData, {
+    const response = this.http.post(environment.apiUrl, formData, {
       reportProgress: true,
       observe: 'events'
     }).subscribe({
