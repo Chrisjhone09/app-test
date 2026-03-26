@@ -1,0 +1,84 @@
+.upload-card {
+  width: 400px;
+  margin: auto;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  background: white;
+}
+
+.upload-box {
+  border: 2px dashed #999;
+  padding: 30px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.file-info {
+  margin-top: 16px;
+}
+
+.upload-progress {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.progress-bar {
+  width: 220px;
+  height: 10px;
+  background: #f0f0f0;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0a66c2, #2ea6ff);
+  width: 0%;
+  transition: width 200ms linear;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid rgba(0,0,0,0.08);
+  border-top-color: #0a66c2;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.quiz-card {
+  width: 720px;
+  margin: 28px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 26px rgba(0,0,0,0.08);
+  background: #fff;
+}
+.quiz-card h2 { margin-top: 0; }
+.quiz-load textarea { width: 100%; box-sizing: border-box; margin-top: 8px; padding: 8px; font-family: inherit; }
+.quiz-container { margin-top: 16px; }
+.question { padding: 12px 0; border-bottom: 1px solid #eee; }
+.q-text { margin: 0 0 8px 0; font-weight: 600; }
+.options { display: flex; flex-direction: column; gap: 6px; }
+.option { display: flex; align-items: center; gap: 8px; }
+.quiz-submit { margin-top: 12px; display:flex; align-items:center; gap:16px; }
+.score { font-weight:700; color:#0a66c2; }
+.answer-result { margin-top:8px; }
+.answer-result.correct { color: green; }
+.answer-result.wrong { color: #c62828; }
