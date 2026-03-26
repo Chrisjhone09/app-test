@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpEvent, HttpEventType, HttpResponse, HttpProgressEvent } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import OpenAI from "openai";
-import dotenv from 'dotenv';
+import { environment } from '../environments/environment';
 
 interface Quiz {
   quiz_title: string;
@@ -17,21 +16,6 @@ interface Quiz {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-async click () {
-dotenv.config();
-
-
-const client = new OpenAI({apiKey: process.env['OPENAI_API_KEY']});
-
-const response = await client.chat.completions.create({
-  model: "gpt-4o",
-  messages: [
-    { role: "system", content: "You are a helpful assistant." },
-    { role: "user", content: "What is 2 + 2?" }
-  ],
-});
-console.log(response.choices[0].message);
-}
   title = 'front';
   selectedFile: File | null = null;
   uploadProgress = 0;
@@ -131,7 +115,7 @@ console.log(response.choices[0].message);
     this.uploadProgress = 0;
     this.uploading = true;
 
-    const response = this.http.post('https://personal-test-ehhjb0a4hqgygrau.southeastasia-01.azurewebsites.net/api/file/upload-file', formData, {
+    const response = this.http.post(environment.apiUrl + "/api/file/upload-file", formData, {
       reportProgress: true,
       observe: 'events'
     }).subscribe({
