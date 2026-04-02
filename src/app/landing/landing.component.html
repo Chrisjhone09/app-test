@@ -4,7 +4,6 @@
         <span class="brand">StudyQuiz</span>
     </div>
     <nav class="nav-center">
-        <a href="#love">Wall of Love</a>
     </nav>
     <div class="nav-right">
         <button class="hamburger" [class.open]="menuOpen"
@@ -16,11 +15,6 @@
 
 <!-- mobile nav panel -->
 <div class="mobile-menu" [class.visible]="menuOpen" role="navigation" aria-label="Mobile menu">
-    <a href="#how"  (click)="menuOpen=false">How it works</a>
-    <a href="#features" (click)="menuOpen=false">Features</a>
-    <a href="#love" (click)="menuOpen=false">Wall of Love</a>
-    <a class="login" (click)="menuOpen=false">Log in</a>
-    <button class="btn primary" (click)="menuOpen=false; navigateTo('/generate')">Start Free Trial</button>
 </div>
 
 <main class="hero">
