@@ -1,0 +1,48 @@
+<p>template works!</p>
+<section class="wall-of-love" id="love">
+
+  <div class="wol-stars" aria-label="5 out of 5 stars">
+    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+  </div>
+  <h2 class="wol-title">Students love StudyQuiz</h2>
+  <p class="wol-sub">Join thousands of students who study smarter, not harder.<br>Here's what they have to say.</p>
+
+  <!-- stats row -->
+  <div class="wol-stats">
+    <div class="stat">
+      <div class="stat-num">{{ formatNum(visits) }}<span class="stat-plus">+</span></div>
+      <div class="stat-label">STUDENTS</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">{{ formatNum(numberOfQuizzes) }}<span class="stat-plus">+</span></div>
+      <div class="stat-label">QUIZZES GENERATED</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">{{ averageRating || '4.9' }}<span class="stat-denom">/5</span></div>
+      <div class="stat-label">AVERAGE RATING</div>
+    </div>
+  </div>
+
+  <!-- rating breakdown -->
+  <div class="wol-card">
+    <div class="rating-summary">
+      <div class="big-score">{{ averageRating || '4.9' }}</div>
+      <div class="big-stars" [attr.aria-label]="averageRating + ' stars'">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span class="half">★</span>
+      </div>
+      <div class="review-count">Based on {{ totalReviews || '12,847' }} reviews</div>
+    </div>
+    <div class="rating-bars">
+      <div class="bar-row" *ngFor="let row of ratingBars">
+        <span class="bar-label">{{ row.stars }} ★</span>
+        <div class="bar-track">
+          <div class="bar-fill" [style.width]="row.pct + '%'"></div>
+        </div>
+        <span class="bar-pct">{{ row.pct }}%</span>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://personal-test-ehhjb0a4hqgygrau.southeastasia-01.azurewebsites.net/api/file/upload-file'
+  apiUrl: 'https://organological-unenticeable-lamar.ngrok-free.dev/',
+  // SignalR hub URL for realtime monitor (adjust server route if needed)
+  signalRHubUrl: 'https://organological-unenticeable-lamar.ngrok-free.dev/hub/monitor'
 };

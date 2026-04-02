@@ -1,0 +1,160 @@
+<header class="g-header">
+    <div class="left">
+        <img src="logo.png" alt="StudyQuiz logo" class="g-logo" />
+        <span class="brand">StudyQuiz</span>
+    </div>
+</header>
+
+<div class="page-hero">
+    <h1 class="page-title">Generate a new quiz</h1>
+    <p class="page-sub">Upload your lecture notes, slides, or textbook chapter.</p>
+</div>
+
+<main class="g-container">
+
+    <!-- ─── Upload ────────────────────────────────── -->
+    <section class="upload" aria-labelledby="upload-label">
+
+        <!-- hidden native file picker -->
+        <input #fileInput type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.txt" hidden (change)="onFileInput($event)" />
+
+        <!-- ── idle / no file ── -->
+        <div *ngIf="!selectedFile" class="upload-box" [class.drag-over]="dragOver" role="button" tabindex="0"
+            aria-describedby="formats" (click)="openPicker()" (keydown.enter)="openPicker()"
+            (keydown.space)="openPicker()" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+            (drop)="onDrop($event)">
+
+            <svg class="upload-icon" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+                <rect width="56" height="56" rx="12" fill="#f0eeff" />
+                <path d="M20 40h16a2 2 0 002-2V24l-8-8H20a2 2 0 00-2 2v20a2 2 0 002 2z" stroke="#7b3df5"
+                    stroke-width="1.8" stroke-linejoin="round" fill="none" />
+                <path d="M30 16v6a2 2 0 002 2h6" stroke="#7b3df5" stroke-width="1.8" stroke-linecap="round"
+                    fill="none" />
+                <path d="M28 28v8M25 33l3 3 3-3" stroke="#7b3df5" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+
+            <h3 id="upload-label" class="upload-title">Click or drag document here</h3>
+            <p id="formats" class="formats">Supports PDF, DOCX, TXT, PPTX up to 50MB</p>
+            <button class="btn browse" type="button" (click)="$event.stopPropagation(); openPicker()">Browse
+                Files</button>
+        </div>
+
+        <!-- ── file selected / uploading / success ── -->
+        <div *ngIf="selectedFile" class="upload-box file-chosen" [class.uploading]="uploadState==='uploading'">
+
+            <!-- file info row -->
+            <div class="file-info-row">
+                <svg class="file-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="#7b3df5"
+                        stroke-width="1.6" stroke-linejoin="round" />
+                    <path d="M14 2v6h6" stroke="#7b3df5" stroke-width="1.6" stroke-linecap="round" />
+                </svg>
+                <div class="file-meta">
+                    <span class="file-name">{{ selectedFile.name }}</span>
+                    <span class="file-size">{{ (selectedFile.size / 1024 / 1024).toFixed(2) }} MB</span>
+                </div>
+                <button class="remove-btn" type="button" (click)="clearFile()" [disabled]="uploadState==='uploading'"
+                    aria-label="Remove file">✕</button>
+            </div>
+
+            <!-- progress bar (shown while uploading) -->
+            <div *ngIf="uploadState==='uploading'" class="progress-wrap">
+                <div class="progress-track">
+                    <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+                </div>
+                <span class="progress-pct">{{ uploadProgress }}%</span>
+            </div>
+
+            <!-- success message -->
+            <div *ngIf="uploadState==='success'" class="status-msg success-msg">
+                <svg viewBox="0 0 20 20" fill="none" width="16" height="16" aria-hidden="true">
+                    <circle cx="10" cy="10" r="9" fill="#22c55e" />
+                    <path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                Upload complete — generating your quiz…
+            </div>
+        </div>
+
+        <!-- error message (always below the box) -->
+        <div *ngIf="errorMessage" class="error-msg" role="alert">
+            <svg viewBox="0 0 20 20" fill="none" width="15" height="15" aria-hidden="true">
+                <circle cx="10" cy="10" r="9" fill="#ef4444" />
+                <path d="M10 6v4M10 13.5v.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            Error: I am currently working on improving the file upload system. The system may be unstable and may not work with certain files. Please try uploading a different file (docx. pptx).
+        </div>
+    </section>
+
+    <!-- ─── Settings ─────────────────────────────── -->
+    <aside class="settings" aria-labelledby="settings-title">
+        <div class="card">
+
+            <div class="card-header">
+                <!-- gear icon -->
+                <svg class="gear" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" stroke="#7b3df5" stroke-width="1.5" />
+                    <path
+                        d="M10 2v1.5M10 16.5V18M2 10h1.5M16.5 10H18M4.22 4.22l1.06 1.06M14.72 14.72l1.06 1.06M4.22 15.78l1.06-1.06M14.72 5.28l1.06-1.06"
+                        stroke="#7b3df5" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                <h4 id="settings-title">Quiz Settings</h4>
+            </div>
+
+            <!-- Number of questions -->
+            <div class="field">
+                <div class="label-row">
+                    <span class="field-label">Number of Questions</span>
+                    <span class="badge">{{ numQuestions }}</span>
+                </div>
+                <input type="range" min="1" max="30" [(ngModel)]="numQuestions" [style.--pct]="sliderPct"
+                    aria-label="Number of questions" />
+            </div>
+
+            <!-- Question types -->
+            <div class="field">
+                <div class="field-label">Question Types</div>
+                <label class="checkbox">
+                    <input type="checkbox" [(ngModel)]="qMultiple" />
+                    <span class="check-box"></span>
+                    <span>Multiple Choice</span>
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" [(ngModel)]="qTrueFalse" />
+                    <span class="check-box"></span>
+                    <span>True / False</span>
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" />
+                    <span class="check-box"></span>
+                    <span>Identification</span>
+                </label>
+            </div>
+
+            <!-- Difficulty -->
+            <div class="field">
+                <div class="field-label">Difficulty</div>
+                <div class="pills" role="group" aria-label="Difficulty selector">
+                    <button class="pill" [class.active]="difficulty==='easy'" (click)="difficulty='easy'">Easy</button>
+                    <button class="pill" [class.active]="difficulty==='medium'"
+                        (click)="difficulty='medium'">Medium</button>
+                    <button class="pill" [class.active]="difficulty==='hard'" (click)="difficulty='hard'">Hard</button>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button class="btn cta" [disabled]="!isReady || uploadState==='uploading'" [class.active]="isReady"
+                    [class.loading]="uploadState==='uploading'" (click)="generate()">
+                    <span *ngIf="uploadState !== 'uploading'">
+                        {{ selectedFile ? 'Generate Quiz' : 'Select a file first' }}
+                    </span>
+                    <span *ngIf="uploadState === 'uploading'" class="spinner-row">
+                        <span class="spin"></span> Uploading… {{ uploadProgress }}%
+                    </span>
+                </button>
+            </div>
+
+        </div>
+    </aside>
+</main>

@@ -1,0 +1,52 @@
+<header class="nav" [class.menu-open]="menuOpen">
+    <div class="nav-left">
+        <img src="logo.png" alt="StudyQuiz" class="logo" />
+        <span class="brand">StudyQuiz</span>
+    </div>
+    <nav class="nav-center">
+        <a href="#love">Wall of Love</a>
+    </nav>
+    <div class="nav-right">
+        <button class="hamburger" [class.open]="menuOpen"
+                (click)="menuOpen = !menuOpen"
+                [attr.aria-expanded]="menuOpen"
+                aria-label="Toggle menu">{{ menuOpen ? '✕' : '☰' }}</button>
+    </div>
+</header>
+
+<!-- mobile nav panel -->
+<div class="mobile-menu" [class.visible]="menuOpen" role="navigation" aria-label="Mobile menu">
+    <a href="#how"  (click)="menuOpen=false">How it works</a>
+    <a href="#features" (click)="menuOpen=false">Features</a>
+    <a href="#love" (click)="menuOpen=false">Wall of Love</a>
+    <a class="login" (click)="menuOpen=false">Log in</a>
+    <button class="btn primary" (click)="menuOpen=false; navigateTo('/generate')">Start Free Trial</button>
+</div>
+
+<main class="hero">
+    <div class="hero-inner">
+        <span class="pill">Smarter studying is here</span>
+
+        <h1 class="headline">
+            <div class="line-1">Upload your notes.</div>
+            <div class="line-2">Master them in minutes.</div>
+        </h1>
+
+        <p class="subtitle">Stop re-reading and start testing. StudyQuiz instantly turns your PDFs, slides, and notes
+            into personalized mock exams.</p>
+
+        <div class="cta-row">
+            <button class="btn try" (click)="navigateTo('/generate')">
+                Try it for free
+                <span class="arrow">→</span>
+            </button>
+        </div>
+
+        <div class="social-proof">
+            <div class="proof-text">Developed by Chris Jhone Radana</div>
+        </div>
+    </div>
+
+</main>
+
+<!-- ═══ Wall of Love ═══════════════════════════════════════════════════ -->
