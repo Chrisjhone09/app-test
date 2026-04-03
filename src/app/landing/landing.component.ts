@@ -38,30 +38,30 @@ export class LandingComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    console.log('Fetching stats from API...');
-    this.http.get<FeedbackResponse>(environment.apiUrl + 'api/file/get-feedback')
-      .subscribe({
-        next: (data) => {
-          this.visits = data.visits;
-          this.numberOfQuizzes = data.numberOfQuizzes;
+    // console.log('Fetching stats from API...');
+    // this.http.get<FeedbackResponse>(environment.apiUrl + 'api/file/get-feedback')
+    //   .subscribe({
+    //     next: (data) => {
+    //       this.visits = data.visits;
+    //       this.numberOfQuizzes = data.numberOfQuizzes;
 
-          this.totalReviews = data.result.reduce((sum, r) => sum + r.Count, 0);
+    //       this.totalReviews = data.result.reduce((sum, r) => sum + r.Count, 0);
 
-          if (this.totalReviews > 0) {
-            const weightedSum = data.result.reduce((sum, r) => sum + r.Stars * r.Count, 0);
-            this.averageRating = Math.round((weightedSum / this.totalReviews) * 10) / 10;
+    //       if (this.totalReviews > 0) {
+    //         const weightedSum = data.result.reduce((sum, r) => sum + r.Stars * r.Count, 0);
+    //         this.averageRating = Math.round((weightedSum / this.totalReviews) * 10) / 10;
 
-            // result IS the ratingBars — map directly, sorted 5→1
-            const allStars = [5, 4, 3, 2, 1];
-            const countMap = new Map<number, number>(data.result.map(r => [r.Stars, r.Count]));
-            this.ratingBars = allStars.map(s => ({
-              stars: s,
-              pct: Math.round((countMap.get(s) ?? 0) / this.totalReviews * 100)
-            }));
-          }
-        },
-        error: () => { /* keep default placeholder values on error */ }
-      });
+    //         // result IS the ratingBars — map directly, sorted 5→1
+    //         const allStars = [5, 4, 3, 2, 1];
+    //         const countMap = new Map<number, number>(data.result.map(r => [r.Stars, r.Count]));
+    //         this.ratingBars = allStars.map(s => ({
+    //           stars: s,
+    //           pct: Math.round((countMap.get(s) ?? 0) / this.totalReviews * 100)
+    //         }));
+    //       }
+    //     },
+    //     error: () => { /* keep default placeholder values on error */ }
+    //   });
   }
 
   formatNum(n: number): string {
