@@ -363,6 +363,20 @@ input[type=range]::-moz-range-thumb {
   font-weight: 500;
 }
 
+.warning-msg {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #b98282;
+  font-size: 13px;
+  font-weight: 500;
+}
+
 /* ── CTA active / loading states ─────────────────────────────── */
 .btn.cta.active {
   opacity: 1;

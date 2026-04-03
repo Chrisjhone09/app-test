@@ -85,6 +85,10 @@
             </svg>
             Error: I am currently working on improving the file upload system. The system may be unstable and may not work with certain files. Please try uploading a different file (docx. pptx).
         </div>
+         <div *ngIf="!errorMessage" class="warning-msg" role="alert">
+            
+            The file upload system is currently being improved. Bugs may occur, and some files may not upload successfully.
+        </div>
     </section>
 
     <!-- ─── Settings ─────────────────────────────── -->
