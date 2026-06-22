@@ -137,7 +137,7 @@ export class GeneratorComponent {
 
                     try {
                         const quizData = event.body;
-
+                        console.log(quizData)
                         this.uploadState = 'success';
 
                         this.router.navigate(['/quiz'], {
