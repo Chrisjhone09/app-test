@@ -94,7 +94,7 @@ export class QuizViewComponent implements OnInit, OnDestroy {
         // getCurrentNavigation() is null by ngOnInit; state lives in history.state
         const state = history.state;
         const quizData: QuizData | null = state?.['quizData'] ?? null;
-
+        console.log(quizData)
         if (quizData?.questions?.length) {
             this.fileName = quizData.fileName ?? '';
             this.questions = quizData.questions;
