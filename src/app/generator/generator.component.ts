@@ -124,7 +124,7 @@ export class GeneratorComponent {
         this.uploadState = 'uploading';
         this.uploadProgress = 0;
 
-        this.http.post(environment.apiUrl+"api/file/upload-file", formData, {
+        this.http.post(environment.apiUrl + "api/file/upload-file", formData, {
             reportProgress: true,
             observe: 'events',
         }).subscribe({
@@ -134,15 +134,20 @@ export class GeneratorComponent {
                     this.uploadProgress = Math.round(100 * event.loaded / total);
                 } else if (event.type === HttpEventType.Response) {
                     this.uploadProgress = 100;
+
                     try {
-                        const body = event.body as { reply: string } | null;
-                        if (!body?.reply) throw new Error('Empty or unexpected server response.');
-                        const quizData = JSON.parse(body.reply);
+                        const quizData = event.body;
+
                         this.uploadState = 'success';
-                        this.router.navigate(['/quiz'], { state: { quizData } });
+
+                        this.router.navigate(['/quiz'], {
+                            state: { quizData }
+                        });
+
                     } catch (e: any) {
                         this.uploadState = 'error';
-                        this.errorMessage = e?.message ?? 'Failed to parse quiz data from server.';
+                        this.errorMessage =
+                            e?.message ?? 'Failed to parse quiz data from server.';
                     }
                 }
             },
